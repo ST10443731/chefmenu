@@ -1,26 +1,44 @@
 import React, { useState } from 'react'; 
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Alert, FlatList } from 'react-native';
+
+interface Dish {
+  name: string;
+  description: string;
+  course: string;
+  price: string;
+}
 
 const ChefSection: React.FC = () => {
   const [dishName, setDishName] = useState('');
   const [description, setDescription] = useState('');
   const [course, setCourse] = useState('');
   const [price, setPrice] = useState('');
+  const [menuItems, setMenuItems] = useState<Dish[]>([]); // Store the list of menu items
 
+  // Add dish to the menu
   const handleAddDish = () => {
     if (!dishName || !description || !course || !price) {
       Alert.alert('Error', 'Please fill in all fields.');
       return;
     }
-    
-    console.log(`Dish: ${dishName}, Description: ${description}, Course: ${course}, Price: ${price}`);
-    
+
+    // Add new dish to the menu list
+    const newDish: Dish = { name: dishName, description, course, price };
+    setMenuItems(prevItems => [...prevItems, newDish]);
+
     Alert.alert('Success', 'Dish added successfully!');
     
+    // Clear input fields after adding the dish
     setDishName('');
     setDescription('');
     setCourse('');
     setPrice('');
+  };
+
+  // Remove dish from the menu
+  const handleRemoveDish = (index: number) => {
+    setMenuItems(prevItems => prevItems.filter((_, i) => i !== index));
+    Alert.alert('Success', 'Dish removed successfully!');
   };
 
   return (
@@ -60,6 +78,24 @@ const ChefSection: React.FC = () => {
         <TouchableOpacity style={styles.button} onPress={handleAddDish}>
           <Text style={styles.buttonText}>Add Dish</Text>
         </TouchableOpacity>
+
+        <Text style={styles.menuTitle}>Menu Items:</Text>
+        
+        {/* Display the list of dishes */}
+        <FlatList
+          data={menuItems}
+          keyExtractor={(item, index) => index.toString()}
+          renderItem={({ item, index }) => (
+            <View style={styles.menuItem}>
+              <Text style={styles.menuItemText}>
+                {item.name} - {item.course} - ${item.price}
+              </Text>
+              <TouchableOpacity style={styles.removeButton} onPress={() => handleRemoveDish(index)}>
+                <Text style={styles.removeButtonText}>Remove</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        />
       </View>
     </ImageBackground>
   );
@@ -112,6 +148,31 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18,
     fontWeight: 'bold',
+  },
+  menuTitle: {
+    fontSize: 22,
+    marginVertical: 20,
+    textAlign: 'center',
+    color: '#003366',
+  },
+  menuItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+  menuItemText: {
+    fontSize: 16,
+    color: '#333',
+  },
+  removeButton: {
+    backgroundColor: '#FF3B30',
+    padding: 8,
+    borderRadius: 5,
+  },
+  removeButtonText: {
+    color: '#fff',
+    fontSize: 14,
   },
 });
 

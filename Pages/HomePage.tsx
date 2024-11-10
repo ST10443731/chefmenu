@@ -9,7 +9,29 @@ interface HomePageProps {
   navigation: HomePageNavigationProp;
 }
 
+// Example menu items with prices
+const menuItems = [
+  { name: 'Starter 1', price: 5.5, course: 'Starters' },
+  { name: 'Starter 2', price: 6.0, course: 'Starters' },
+  { name: 'Main 1', price: 12.0, course: 'Maincourse' },
+  { name: 'Main 2', price: 15.0, course: 'Maincourse' },
+  { name: 'Dessert 1', price: 4.5, course: 'Desserts' },
+  { name: 'Dessert 2', price: 5.0, course: 'Desserts' },
+];
+
+// Function to calculate average price for a given course
+const calculateAveragePrice = (course: string) => {
+  const filteredItems = menuItems.filter(item => item.course === course);
+  const totalPrice = filteredItems.reduce((acc, item) => acc + item.price, 0);
+  return filteredItems.length > 0 ? totalPrice / filteredItems.length : 0;
+};
+
 const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
+  // Calculate average prices for each course
+  const avgStarters = calculateAveragePrice('Starters');
+  const avgMaincourse = calculateAveragePrice('Maincourse');
+  const avgDesserts = calculateAveragePrice('Desserts');
+
   return (
     <ImageBackground
       source={require('../assets/rest.jpg')} 
@@ -18,6 +40,11 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
       <View style={styles.container}>
         <Text style={styles.title}>Christoffel Menu</Text>
         
+        {/* Display average prices */}
+        <Text style={styles.averageText}>Average Price for Starters: ${avgStarters.toFixed(2)}</Text>
+        <Text style={styles.averageText}>Average Price for Main Courses: ${avgMaincourse.toFixed(2)}</Text>
+        <Text style={styles.averageText}>Average Price for Desserts: ${avgDesserts.toFixed(2)}</Text>
+
         <TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate('Menu')}>
           <Text style={styles.linkText}>View Menu</Text>
         </TouchableOpacity>
@@ -69,6 +96,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     color: '#003366', 
+  },
+  averageText: {
+    fontSize: 18,
+    marginBottom: 10,
+    color: '#003366',
   },
   linkButton: {
     backgroundColor: '#007AFF',

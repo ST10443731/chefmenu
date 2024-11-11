@@ -31,7 +31,9 @@ Expected Features (Not Displayed)
 : The menu items were to be stored in an array and dynamically displayed, allowing for easy modification without restarting the app.
 
 Video Submission
-To further demonstrate the intended functionality of the app, I will also be submitting a video from my previous assignment. This video will show how the app was working prior to the issues that arose during the final stages of this assignment.
+To further demonstrate the intended functionality of the app, I will also be submitting a video two videos, one  from my previous assignmen and the other for the final POE. The first video will show how the app was working prior to the issues that arose during the final stages of this assignment and the last video will show the prigress made on the code.
+The link:https://youtu.be/0nz5aAUc2pc 
+The POE:https://youtu.be/MMSQx4wub5Q
 
 GitHub Repository
 The app's source code is available in the GitHub repository linked below. It includes the initial implementation of the app, the features I was able to complete, and the issues I encountered during the final stages.

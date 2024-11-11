@@ -1,5 +1,8 @@
 import React, { useState } from 'react'; 
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, ImageBackground, Alert, FlatList } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../Navigation/RootStackParamList';
 
 interface Dish {
   name: string;
@@ -15,9 +18,12 @@ const ChefSection: React.FC = () => {
   const [price, setPrice] = useState('');
   const [menuItems, setMenuItems] = useState<Dish[]>([]);
 
+  const navigation = useNavigation<StackNavigationProp<RootStackParamList>>();
+
   const handleAddDish = () => {
-    if (!dishName || !description || !course || !price || isNaN(Number(price))) {
-      Alert.alert('Error', 'Please fill in all fields and provide a valid price.');
+    // Validate input
+    if (!dishName || !description || !course || !price || isNaN(Number(price)) || Number(price) <= 0) {
+      Alert.alert('Error', 'Please fill in all fields and provide a valid price greater than zero.');
       return;
     }
 
@@ -25,6 +31,11 @@ const ChefSection: React.FC = () => {
     setMenuItems(prevItems => [...prevItems, newDish]);
 
     Alert.alert('Success', 'Dish added successfully!');
+    
+    // Optionally, navigate to another screen after adding a dish (e.g., Home)
+    // navigation.navigate('Home');
+
+    // Clear input fields after adding the dish
     setDishName('');
     setDescription('');
     setCourse('');
@@ -37,10 +48,7 @@ const ChefSection: React.FC = () => {
   };
 
   return (
-    <ImageBackground
-      source={require('../assets/bill.jpg')} 
-      style={styles.background}
-    >
+    <ImageBackground source={require('../assets/bill.jpg')} style={styles.background}>
       <View style={styles.container}>
         <Text style={styles.title}>Chef Section</Text>
 
@@ -75,10 +83,10 @@ const ChefSection: React.FC = () => {
         </TouchableOpacity>
 
         <Text style={styles.menuTitle}>Menu Items:</Text>
-        
+
         <FlatList
           data={menuItems}
-          keyExtractor={(item, index) => item.name + index} 
+          keyExtractor={(item, index) => item.name + index} // Make sure item names are unique
           renderItem={({ item, index }) => (
             <View style={styles.menuItem}>
               <Text style={styles.menuItemText}>
@@ -104,16 +112,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)', // Semi-transparent 
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
     borderRadius: 10,
     padding: 20,
     margin: 20,
-    elevation: 5, 
-    shadowColor: '#000', 
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.8,
     shadowRadius: 2,
   },

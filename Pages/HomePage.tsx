@@ -45,6 +45,7 @@ const HomePage: React.FC<HomePageProps> = ({ navigation }) => {
         <Text style={styles.averageText}>Average Price for Main Courses: ${avgMaincourse.toFixed(2)}</Text>
         <Text style={styles.averageText}>Average Price for Desserts: ${avgDesserts.toFixed(2)}</Text>
 
+        {/* Navigation buttons */}
         <TouchableOpacity style={styles.linkButton} onPress={() => navigation.navigate('Menu')}>
           <Text style={styles.linkText}>View Menu</Text>
         </TouchableOpacity>

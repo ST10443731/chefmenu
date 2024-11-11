@@ -2,7 +2,7 @@
 export type RootStackParamList = {
   Home: undefined;
   Menu: undefined;
-  Courses: undefined;
+  Courses: { courseId: string };  // Example for passing a parameter
   Bill: undefined;
   Contact: undefined;
   About: undefined;
@@ -11,5 +11,6 @@ export type RootStackParamList = {
   Starters: undefined;
   ChefSection: undefined;
 };
+
 
 

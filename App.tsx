@@ -12,7 +12,7 @@ import Starters from '../Chefmenu/Pages/Starters';
 import Maincourse from '../Chefmenu/Pages/Maincourse';
 import Drinks from '../Chefmenu/Pages/Drinks';
 import AboutPage from '../Chefmenu/Pages/About'; // Removed extra semicolon
-import DessertPage from '../Chefmenu/Pages/Desserts'; // Removed extra semicolon // Added Chef import
+import DessertPage from '../Chefmenu/Pages/Desserts'; // Removed extra semicolon
 import ChefSection from '../Chefmenu/Pages/ChefSection';
 
 // Define the parameter list for the stack navigator
@@ -36,6 +36,7 @@ const App: React.FC = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Home">
+        {/* Stack.Screen components only */}
         <Stack.Screen name="Home" component={HomePage} />
         <Stack.Screen name="Menu" component={MenuPage} />
         <Stack.Screen name="Courses" component={CoursesPage} />

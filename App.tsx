@@ -1,6 +1,8 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+
+// Importing pages
 import HomePage from '../Chefmenu/Pages/HomePage';
 import MenuPage from '../Chefmenu/Pages/MenuPage';
 import CoursesPage from '../Chefmenu/Pages/CoursesPage';
@@ -10,8 +12,8 @@ import Starters from '../Chefmenu/Pages/Starters';
 import Maincourse from '../Chefmenu/Pages/Maincourse';
 import Drinks from '../Chefmenu/Pages/Drinks';
 import AboutPage from '../Chefmenu/Pages/About'; // Removed extra semicolon
-import DessertPage from '../Chefmenu/Pages/Desserts'; // Removed extra semicolon
-import Chef from '../Chefmenu/Pages/chef'; // Added Chef import
+import DessertPage from '../Chefmenu/Pages/Desserts'; // Removed extra semicolon // Added Chef import
+import ChefSection from '../Chefmenu/Pages/ChefSection';
 
 // Define the parameter list for the stack navigator
 type RootStackParamList = {
@@ -25,7 +27,7 @@ type RootStackParamList = {
   Drinks: undefined;
   Maincourse: undefined;
   Starters: undefined;
-  Chef: undefined;  // Added Chef screen to param list
+  ChefSection: undefined;  // Added Chef screen to param list
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -44,7 +46,7 @@ const App: React.FC = () => {
         <Stack.Screen name="Drinks" component={Drinks} />
         <Stack.Screen name="Maincourse" component={Maincourse} />
         <Stack.Screen name="Starters" component={Starters} />
-        <Stack.Screen name="Chef" component={Chef} />  {/* Added Chef screen */}
+        <Stack.Screen name="ChefSection" component={ChefSection} />  {/* Added Chef screen */}
       </Stack.Navigator>
     </NavigationContainer>
   );

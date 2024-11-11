@@ -13,29 +13,24 @@ const ChefSection: React.FC = () => {
   const [description, setDescription] = useState('');
   const [course, setCourse] = useState('');
   const [price, setPrice] = useState('');
-  const [menuItems, setMenuItems] = useState<Dish[]>([]); // Store the list of menu items
+  const [menuItems, setMenuItems] = useState<Dish[]>([]);
 
-  // Add dish to the menu
   const handleAddDish = () => {
-    if (!dishName || !description || !course || !price) {
-      Alert.alert('Error', 'Please fill in all fields.');
+    if (!dishName || !description || !course || !price || isNaN(Number(price))) {
+      Alert.alert('Error', 'Please fill in all fields and provide a valid price.');
       return;
     }
 
-    // Add new dish to the menu list
     const newDish: Dish = { name: dishName, description, course, price };
     setMenuItems(prevItems => [...prevItems, newDish]);
 
     Alert.alert('Success', 'Dish added successfully!');
-    
-    // Clear input fields after adding the dish
     setDishName('');
     setDescription('');
     setCourse('');
     setPrice('');
   };
 
-  // Remove dish from the menu
   const handleRemoveDish = (index: number) => {
     setMenuItems(prevItems => prevItems.filter((_, i) => i !== index));
     Alert.alert('Success', 'Dish removed successfully!');
@@ -81,10 +76,9 @@ const ChefSection: React.FC = () => {
 
         <Text style={styles.menuTitle}>Menu Items:</Text>
         
-        {/* Display the list of dishes */}
         <FlatList
           data={menuItems}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(item, index) => item.name + index} 
           renderItem={({ item, index }) => (
             <View style={styles.menuItem}>
               <Text style={styles.menuItemText}>
@@ -128,7 +122,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
     textAlign: 'center',
-    color: '#003366', // title
+    color: '#003366',
   },
   input: {
     borderWidth: 1,

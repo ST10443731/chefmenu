@@ -14,6 +14,7 @@ const BillPage: React.FC = () => {
   const calculateTotal = () => {
     const sum = foodItems.reduce((acc, item) => acc + item.price, 0);
     setTotal(sum);
+    // Corrected Alert message with template literals
     Alert.alert('Total Amount', `Your total bill is $${sum}.`, [{ text: 'OK' }]);
   };
 
